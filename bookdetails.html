@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Details | Book Sharing System</title>
+    <link rel="stylesheet" href="bookdetailscss.css">
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Book Details</h1>
+    </section>
+
+    <!-- Book Details Section -->
+    <section class="book-details">
+        <div id="book-details-container">
+            <!-- Book details will be displayed here -->
+        </div>
+    </section>
+
+    <!-- Contact Us Section -->
+    <section class="contact-us">
+        <button onclick="sendRequest()">Contact Us</button>
+    </section>
+
+    <!-- Success Message Popup -->
+    <div id="success-message" class="popup">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closeSuccessMessage()">×</span>
+            <p>Your request has been successfully sent to the book owner!</p>
+        </div>
+    </div>
+
+    <script>
+        // Close the success message popup
+        function closeSuccessMessage() {
+            document.getElementById('success-message').style.display = 'none';
+        }
+
+        // Simulate sending a message
+        function sendRequest() {
+            // Display the success message
+            document.getElementById('success-message').style.display = 'block';
+        }
+
+        // Retrieve the search query from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const searchQuery = urlParams.get('title');
+
+        if (searchQuery) {
+            // Get the books from localStorage
+            const books = JSON.parse(localStorage.getItem('books')) || [];
+
+            // Find the book matching the search query
+            const book = books.find(b => b.title.toLowerCase() === searchQuery.toLowerCase());
+
+            // Display the book details or show the "not found" message
+            const bookDetailsContainer = document.getElementById('book-details-container');
+            const contactUsSection = document.querySelector('.contact-us');
+
+            if (book) {
+                // Display book details
+                bookDetailsContainer.innerHTML = `
+                    <div class="book-card">
+                        <h3>${book.title}</h3>
+                        <p><strong>Author:</strong> ${book.author}</p>
+                        <p><strong>Genre:</strong> ${book.genre}</p>
+                        <p><strong>Description:</strong> ${book.description}</p>
+                    </div>
+                `;
+                // Ensure "Contact Us" button is visible
+                contactUsSection.style.display = 'block';
+            } else {
+                // If the book is not found, display a message and hide "Contact Us"
+                bookDetailsContainer.innerHTML = '<p>No book found with that title.</p>';
+                contactUsSection.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

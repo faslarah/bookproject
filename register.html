@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - BookSwapHub</title>
+</head>
+
+<body>
+    <div style="display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f4f4f4;">
+        <div style="background-color: rgb(21, 115, 125); padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: 300px;">
+
+            <form id="register-form">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required style="width: 100%; padding: 10px; margin-bottom: 10px;">
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required style="width: 100%; padding: 10px; margin-bottom: 10px;">
+
+                <button type="submit" style="width: 100%; padding: 10px; background-color: #4CAF50; color: white; border: none; border-radius: 4px;">Register</button>
+            </form>
+            <p style="text-align: center; margin-top: 10px;">Already have an account? <a href="login.html">Login here</a></p>
+            <p id="error-message" style="color: red; text-align: center; display: none;">Username already exists</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('register-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+
+            // Check if the username already exists
+            const userExists = users.some(user => user.username === username);
+
+            if (userExists) {
+                document.getElementById('error-message').style.display = 'block';
+            } else {
+                // Save the user in localStorage
+                users.push({ username, password });
+                localStorage.setItem('users', JSON.stringify(users));
+
+                // Redirect to login page after successful registration
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+</body>
+
+</html>

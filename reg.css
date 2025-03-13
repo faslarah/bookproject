@@ -1,0 +1,83 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Full height */
+    font-family: Arial, sans-serif;
+    background-image: url('images/elnaz-asadi-VcdXeNqh10Y-unsplash.jpg'); /* Add your background image here */
+    background-size: cover; /* Ensure the image covers the entire screen */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+/* Styling for the form */
+form {
+    text-align: center;
+    padding: 40px; /* Increased padding */
+    width: 100%;
+    max-width: 500px; /* Increased width of the container */
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Optional: Soft shadow */
+}
+
+/* Label and input field styling */
+label, input, button {
+    width: 100%;
+    margin-bottom: 15px; /* Increased space between elements */
+    font-size: 18px; /* Increased font size */
+}
+
+input {
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px; /* Slightly larger border radius for inputs */
+}
+
+button {
+    padding: 12px;
+    font-size: 18px; /* Increased font size */
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px; /* Rounded corners for button */
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+p {
+    font-size: 16px;
+}
+
+/* Error message */
+#error-message {
+    font-size: 14px;
+    color: red;
+    display: none; /* Hidden by default */
+}
+
+/* Style for link text */
+a {
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Footer text styling */
+footer {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    color: #fff; /* White color for footer text */
+}

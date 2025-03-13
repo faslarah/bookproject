@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Sharing System</title>
+    <link rel="stylesheet" href="homecss.css">
+</head>
+<body>
+
+    <!-- Header (Removed BookShare, Home, Browse Books, My Library, Sign Up, and Login) -->
+    <header>
+        <!-- The header is now empty -->
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Welcome to BookShare</h1>
+        <p>Share the knowledge, one book at a time.</p>
+        <!-- Search Bar and Search Button -->
+        <div class="search-bar-container">
+            <input type="text" id="search-input" placeholder="Search for books...">
+            <button onclick="searchBooks()">Search</button>
+        </div>
+    </section>
+
+    <!-- Featured Books Section (with "Featured Books" text removed) -->
+    <section class="featured-books">
+        <!-- The text 'Featured Books' is removed -->
+        <div class="book-grid">
+            <!-- Dynamically added books will appear here after search -->
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="cta">
+        <h2>ADD YOUR BOOK HERE!</h2>
+        <button onclick="window.location.href='addbook.html'">Get Started</button>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <ul>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+        </ul>
+        <div class="social-media">
+            <a href="#">Facebook</a>
+            <a href="#">Instagram</a>
+            <a href="#">Twitter</a>
+        </div>
+    </footer>
+
+    <script>
+        function searchBooks() {
+            const searchQuery = document.getElementById('search-input').value;
+            if (searchQuery) {
+                // Redirect to bookdetails.html with the search query as a URL parameter
+                window.location.href = `bookdetails.html?title=${encodeURIComponent(searchQuery)}`;
+            }
+        }
+    </script>
+
+</body>
+</html>

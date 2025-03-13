@@ -1,0 +1,158 @@
+/* Reset styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: black; /* Set the text color to black */
+    padding: 0;
+    min-height: 100vh;
+    background-image: url('images/kimberly-farmer-lUaaKCUANVI-unsplash.jpg'); /* Set your background image here */
+    background-size: cover;
+    background-position: center center;
+}
+
+/* Hero Section */
+.hero {
+    background-color: #1a73e8;
+    color: black; /* Change text color to black */
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.hero h1 {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+/* Add Book Section */
+.add-book {
+    text-align: center;
+    padding: 50px 20px;
+    background-image: url('images/your-background-image.jpg'); /* Add your background image path here */
+    background-size: cover;
+    background-position: center;
+    margin: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    color: black; /* Change text color to black */
+}
+
+/* Form elements styling */
+#addBookForm {
+    display: block;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto; /* Center the form */
+}
+
+/* Each input/textarea is displayed line by line */
+#addBookForm label {
+    font-size: 16px;
+    margin-bottom: 5px;
+    display: block; /* Ensures labels are on their own lines */
+    color: black; /* Change text color to black */
+}
+
+#addBookForm input, #addBookForm textarea {
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Button Styling */
+#addBookForm button {
+    padding: 10px 20px;
+    background-color: #1a73e8;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#addBookForm button:hover {
+    background-color: #155bb5;
+}
+
+/* Book List Section */
+.book-list {
+    padding: 50px 20px;
+    background-color: white;
+    text-align: center;
+}
+
+.book-list h2 {
+    font-size: 30px;
+    margin-bottom: 30px;
+    color: black; /* Change text color to black */
+}
+
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.book-card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.book-card img {
+    max-height: 200px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.book-card h3 {
+    font-size: 18px;
+    margin-top: 10px;
+    color: black; /* Change text color to black */
+}
+
+.book-card p {
+    font-size: 14px;
+    color: black; /* Change text color to black */
+}
+
+.book-card button {
+    padding: 10px 15px;
+    background-color: #1a73e8;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.book-card button:hover {
+    background-color: #155bb5;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .book-grid {
+        grid-template-columns: repeat(2, 1fr); /* Two columns on tablets and small screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .book-grid {
+        grid-template-columns: 1fr; /* Single column on very small screens */
+    }
+}
