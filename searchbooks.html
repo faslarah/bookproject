@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Books | Book Sharing System</title>
+    <link rel="stylesheet" href="searchbooks.css">
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Search for Books</h1>
+        <p>Find books that have been shared by others.</p>
+    </section>
+
+    <!-- Search Bar -->
+    <section class="search-bar-container">
+        <input type="text" id="search-input" placeholder="Enter book title or author">
+        <button onclick="searchBooks()">Search</button>
+    </section>
+
+    <!-- Search Results Section -->
+    <section class="search-results">
+        <h2>Search Results</h2>
+        <div class="book-grid" id="search-results-grid">
+            <!-- Dynamically populated books will appear here -->
+        </div>
+    </section>
+
+    <script>
+        // Function to search books based on the entered query
+        function searchBooks() {
+            const searchQuery = document.getElementById('search-input').value.toLowerCase();
+            const books = JSON.parse(localStorage.getItem('books')) || [];
+            const results = books.filter(book => 
+                book.title.toLowerCase().includes(searchQuery) || 
+                book.author.toLowerCase().includes(searchQuery)
+            );
+            displaySearchResults(results);
+        }
+
+        // Function to display the search results
+        function displaySearchResults(results) {
+            const resultsGrid = document.getElementById('search-results-grid');
+            resultsGrid.innerHTML = '';  // Clear any existing results
+
+            if (results.length > 0) {
+                results.forEach(book => {
+                    const bookCard = document.createElement('div');
+                    bookCard.classList.add('book-card');
+                    // Correctly applying string interpolation
+                    bookCard.innerHTML = `
+                        <h3>${book.title}</h3>
+                        <p><strong>Author:</strong> ${book.author}</p>
+                        <p><strong>Genre:</strong> ${book.genre}</p>
+                        <p>${book.description}</p>
+                        <button onclick="contactUs('${book.title}')">Contact Us</button>
+                    `;
+                    resultsGrid.appendChild(bookCard);
+                });
+            } else {
+                resultsGrid.innerHTML = '<p>No books found.</p>';
+            }
+        }
+
+        // Function for contact button alert
+        function contactUs(bookTitle) {
+            alert(`Your request has been sent regarding the book: ${bookTitle}`);
+        }
+    </script>
+
+</body>
+</html>

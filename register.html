@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - BookSwapHub</title>
+    <link rel="stylesheet" href="reg.css">
+    <script>
+        // Function to handle user registration
+        function registerUser(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Get the entered username and password
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            // Retrieve users from localStorage (if any)
+            const users = JSON.parse(localStorage.getItem("users")) || [];
+
+            // Check if the username already exists
+            if (users.find(user => user.username === username)) {
+                alert("Username already exists!");
+                return;
+            }
+
+            // Add the new user to the array
+            users.push({ username, password });
+
+            // Save the updated users array back to localStorage
+            localStorage.setItem("users", JSON.stringify(users));
+
+            // Redirect to login page after successful registration
+            window.location.href = "login.html";
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h2>Register for an Account</h2>
+            <form id="register-form" onsubmit="registerUser(event)">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+
+                <button type="submit">Register</button>
+
+                <p>Already have an account? <a href="login.html">Login here</a></p>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 BookSwapHub</p>
+    </footer>
+</body>
+
+</html>

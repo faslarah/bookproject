@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - BookSwapHub</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        // Function to handle user login
+        function validateLogin(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Get the entered username and password
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            // Retrieve users from localStorage
+            const users = JSON.parse(localStorage.getItem("users")) || [];
+
+            // Check if the user exists and the password matches
+            const user = users.find(user => user.username === username && user.password === password);
+
+            if (user) {
+                // Redirect to the home page if credentials match
+                window.location.href = "home.html";
+            } else {
+                // Show error message if credentials don't match
+                document.getElementById("error-message").style.display = "block";
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>BookSwapHub</h1>
+        <h2>Login to your account</h2>
+        <form id="login-form" onsubmit="validateLogin(event)">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Login</button>
+
+            <p>Don't have an account? <a href="register.html">Register here</a></p>
+        </form>
+
+        <!-- Error message that will be shown if login fails -->
+        <p id="error-message" style="color: red; display: none;">Incorrect username or password</p>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 BookSwapHub</p>
+    </footer>
+</body>
+
+</html>

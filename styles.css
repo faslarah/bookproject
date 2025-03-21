@@ -1,0 +1,76 @@
+/* Ensure the body takes full height and uses flexbox */
+body {
+    margin: 0;
+    height: 100vh; /* Full height */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    font-family: Arial, sans-serif;
+    background-image: url("images/storytelling-4203628_1280.jpg");
+}
+
+/* Styling for the container */
+.container {
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+    max-width: 400px; /* Limits the width of the container */
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background to highlight contents */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Optional: Soft shadow to make the content stand out */
+    margin-top: -40px; /* Move the container upwards */
+    backdrop-filter: blur(10px); /* Optional: Adds a frosted glass effect */
+}
+
+/* Title styling (larger text) */
+h1 {
+    font-size: 36px; /* Larger size for the main title */
+    margin-bottom: 10px; /* Spacing below the title */
+    color: #333; /* Darker text color for better contrast */
+}
+
+/* Subtitle styling (smaller text) */
+h2 {
+    font-size: 18px; /* Smaller size for the subtitle */
+    margin-bottom: 20px; /* Spacing below the subtitle */
+    color: #555; /* Slightly lighter color for the subtitle */
+}
+
+/* Form styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Spacing between inputs */
+}
+
+/* Input fields and button */
+input[type="text"],
+input[type="password"],
+button {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Button style */
+button {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Footer styling */
+footer {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    color: #fff; /* White color for footer text */
+}
+

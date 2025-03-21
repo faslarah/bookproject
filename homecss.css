@@ -1,0 +1,147 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4; /* You can change this to any background you prefer */
+}
+
+/* Hero Section */
+.hero {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: purple;
+    padding: 20px;
+}
+
+.hero h1 {
+    color: white;
+    font-family: 'Balmoral', cursive;
+}
+
+.hero p {
+    color: black;
+    font-family: 'Brush Script MT', cursive;
+}
+
+/* Divider */
+.divider {
+    width: 100%;
+    height: 4px;
+    background-color: purple;
+    margin: 0;
+}
+
+/* Button Section */
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 150px;
+    margin: 10px;
+    font-size: 18px;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+    position: relative;
+    border: none; /* Removed border */
+}
+
+.button .icon {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 24px;
+}
+
+/* Button Styles */
+.search-book {
+    background-color: #4CAF50;
+}
+
+.search-book:hover {
+    background-color: #45a049;
+}
+
+.add-book {
+    background-color: #2196F3;
+}
+
+.add-book:hover {
+    background-color: #1976D2;
+}
+
+.my-borrow {
+    background-color: #FF9800;
+}
+
+.my-borrow:hover {
+    background-color: #FB8C00;
+}
+
+.feedback {
+    background-color: #9C27B0;
+}
+
+.feedback:hover {
+    background-color: #7B1FA2;
+}
+
+.my-profile {
+    background-color: #F44336;
+}
+
+.my-profile:hover {
+    background-color: #E53935;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    margin-top: 40px; /* Added margin-top to provide space between buttons and footer */
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+footer ul li {
+    display: inline;
+    margin: 0 10px;
+}
+
+footer ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+footer .social-media a {
+    margin: 0 10px;
+    color: white;
+    text-decoration: none;
+}
