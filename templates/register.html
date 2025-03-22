@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - BookSwapHub</title>
-    <link rel="stylesheet" href="reg.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='reg.css') }}">
     <script>
         // Function to handle user registration
         function registerUser(event) {
@@ -49,7 +49,7 @@
 
                 <button type="submit">Register</button>
 
-                <p>Already have an account? <a href="login.html">Login here</a></p>
+                <p>Already have an account? <a href="{{ url_for('login') }}">Login here</a></p>
             </form>
         </div>
     </div>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Sharing System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='homecss.css') }}">
+</head>
+<body>
+    <header>
+        <!-- The header is now empty -->
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Welcome to BookShare</h1>
+        <p>Share the knowledge, one book at a time.</p>
+    </section>
+
+    <!-- Divider -->
+    <div class="divider"></div>
+
+    <!-- Button Section -->
+    <div class="button-container">
+        <a href="{{ url_for('searchbooks') }}" class="button search-book">
+            <span class="icon">&#128269;</span>
+            Search Book
+        </a>
+        <a href="{{ url_for('addbook') }}" class="button add-book">
+            <span class="icon">&#43;</span>
+            Add Book
+        </a>
+        <a href="{{ url_for('myborrow') }}" class="button my-borrow">
+            <span class="icon">&#128218;</span>
+            My Borrow
+        </a>
+        <a href="{{ url_for('feedback') }}" class="button feedback">
+            <span class="icon">&#128214;</span>
+            Feedback
+        </a>
+        <a href="{{ url_for('myprofile') }}" class="button my-profile">
+            <span class="icon">&#128100;</span>
+            My Profile
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <ul>
+            <li><a href="{{ url_for('faq') }}">FAQ</a></li>
+            <li><a href="{{ url_for('privacy') }}">Privacy Policy</a></li>
+            <li><a href="{{ url_for('terms') }}">Terms of Service</a></li>
+        </ul>
+        <div class="social-media">
+            <a href="#">Facebook</a>
+            <a href="#">Instagram</a>
+            <a href="#">Twitter</a>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Book | Book Sharing System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='addbookcss.css') }}">
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Welcome to BookShare</h1>
+        <p>Add a Book and Share the Knowledge!</p>
+    </section>
+
+    <!-- Add Book Form Section -->
+    <section class="add-book">
+        <h2>Add Your Book</h2>
+        <form id="addBookForm" action="{{ url_for('addbook') }}" method="POST">
+            <label for="bookTitle">Book Title:</label>
+            <input type="text" id="bookTitle" name="bookTitle" required>
+
+            <label for="bookAuthor">Author:</label>
+            <input type="text" id="bookAuthor" name="bookAuthor" required>
+
+            <label for="bookGenre">Genre:</label>
+            <input type="text" id="bookGenre" name="bookGenre" required>
+
+            <label for="bookDescription">Description:</label>
+            <textarea id="bookDescription" name="bookDescription" rows="4" required></textarea>
+            
+            <button type="submit">Add Book</button>
+        </form>
+    </section>
+
+    <div class="back-button">
+        <a href="{{ url_for('homepage') }}" class="btn-back">Back to Home</a>
+    </div>
+
+    {% if message %}
+    <div class="message">{{ message }}</div>
+    {% endif %}
+
+</body>
+</html>

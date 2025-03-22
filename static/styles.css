@@ -6,7 +6,7 @@ body {
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
     font-family: Arial, sans-serif;
-    background-image: url("images/storytelling-4203628_1280.jpg");
+    background-image: url("/static/images/storytelling-4203628_1280.jpg");
 }
 
 /* Styling for the container */
