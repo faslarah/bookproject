@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, render_template, redirect, url_for, send_from_directory
 import sqlite3
 from functools import wraps
-from werkzeug.security import generate_password_hash, check_password_hash
+
 
 app = Flask(__name__, static_url_path='/static')
 app.secret_key = 'your_secret_key_here'  # Add a secret key for sessions
@@ -33,7 +33,7 @@ def init_db():
         # Add admin user if it doesn't exist
         c.execute('SELECT * FROM users WHERE username = ?', ('admin',))
         if not c.fetchone():
-            admin_password = generate_password_hash('admin123')
+            admin_password = 'admin123'
             c.execute('INSERT INTO users (username, password) VALUES (?, ?)',
                      ('admin', admin_password))
         
@@ -57,21 +57,50 @@ def home():
 def homepage():
     return render_template('home.html')
 
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        username = request.form['username']
-        password = generate_password_hash(request.form['password'])
-        
+        # Get form data with proper error handling
+        try:
+            username = request.form.get('username', '').strip()
+            password = request.form.get('password', '').strip()
+        except AttributeError:
+            return render_template('register.html', error="Invalid form data")
+
+        # Validate input
+        if not username or not password:
+            return render_template('register.html', error="Username and password are required")
+
         try:
             with get_db() as conn:
                 c = conn.cursor()
-                c.execute('INSERT INTO users (username, password) VALUES (?, ?)',
-                         (username, password))
-                conn.commit()
-            return redirect(url_for('login'))
-        except sqlite3.IntegrityError:
-            return 'Username already exists!', 400
+                
+                # Check if username exists
+                c.execute('SELECT username FROM users WHERE username = ?', (username,))
+                existing_user = c.fetchone()
+                
+                if existing_user:
+                    return render_template('register.html', error="Username already exists")
+                
+                # Insert new user with explicit transaction
+                try:
+                    c.execute('INSERT INTO users (username, password) VALUES (?, ?)',
+                             (username, password))
+                    conn.commit()
+                    print(f"User registered: {username}")  # Debug log
+                    return redirect(url_for('login'))
+                except sqlite3.Error as e:
+                    conn.rollback()
+                    print(f"Database error: {e}")  # Debug log
+                    return render_template('register.html', 
+                                        error="Failed to register user. Please try again.")
+                
+        except sqlite3.Error as e:
+            print(f"Database connection error: {e}")  # Debug log
+            return render_template('register.html', 
+                                error="Database error. Please try again later.")
+            
     return render_template('register.html')
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -82,10 +111,10 @@ def login():
         
         with get_db() as conn:
             c = conn.cursor()
-            user = c.execute('SELECT * FROM users WHERE username = ?', 
-                           (username,)).fetchone()
+            user = c.execute('SELECT * FROM users WHERE username = ? AND password = ?', 
+                           (username, password)).fetchone()
             
-            if user and check_password_hash(user['password'], password):
+            if user:
                 return redirect(url_for('homepage'))
             
         return render_template('login.html', error="Invalid username or password")
@@ -169,6 +198,10 @@ def privacy():
 @app.route('/terms')
 def terms():
     return render_template('terms.html')
+
+@app.route('/logout')
+def logout():
+    return redirect(url_for('login'))
 
 if __name__ == '__main__':
     app.run(debug=True)

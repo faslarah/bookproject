@@ -131,8 +131,38 @@ footer ul li a:hover {
     transition: color 0.3s ease;
 }
 
-.social-media a:hover {
+social-media a:hover {
     color: #9C27B0;
+}
+
+/* Navigation Container */
+.nav-container {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.nav-right {
+    margin-right: 20px;
+}
+
+.logout-button {
+    background-color: #f57cc6;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+    background-color: #cc0000;
 }
 
 /* Responsive Design */
