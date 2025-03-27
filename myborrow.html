@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Borrow</title>
+    <link rel="stylesheet" href="myborrowcss.css"> <!-- Linking External CSS -->
+</head>
+<body>
+
+    <!-- Back to Home Button (Top-Left Corner) -->
+    <button class="back-home" onclick="goHome()">🏠 Back to Home</button>
+
+    <div class="container" id="container">
+        <!-- Left Section -->
+        <div class="left-section" id="leftSection">
+            <h1>📚 My Borrow</h1>
+            <button class="button" id="receiveBtn">Received A Book</button>
+            <p class="drop-note">-Drop your borrowed book here-</p>
+
+            <div class="input-container">
+                <input type="text" id="bookInput" placeholder="Enter book title" />
+                <button class="button" id="addBook">Add to List</button>
+            </div>
+        </div>
+
+        <!-- Right Section -->
+        <div class="right-section" id="bookListContainer">
+            <div class="notification" id="notification">✅ Book added to your borrow list!</div>
+            <h2>📖 Borrowed Books</h2>
+            <ul id="bookList"></ul>
+        </div>
+    </div>
+
+    <!-- Borrow Request Notification -->
+    <div class="borrow-notification" id="borrowNotification">📩 Request sent to borrow this book again!</div>
+
+    <!-- JavaScript -->
+    <script>
+        // Function to redirect to Home Page
+        function goHome() {
+            window.location.href = "home.html"; // Redirect to home page
+        }
+
+        document.getElementById("receiveBtn").addEventListener("click", function() {
+            document.getElementById("bookInput").style.display = "block";
+            document.getElementById("addBook").style.display = "inline-block";
+            document.getElementById("bookInput").focus();
+        });
+
+        document.getElementById("addBook").addEventListener("click", function() {
+            let bookTitle = document.getElementById("bookInput").value.trim();
+            if (bookTitle !== "") {
+                let listItem = document.createElement("li");
+                listItem.textContent = bookTitle;
+                listItem.addEventListener("click", function() {
+                    sendBorrowRequest(bookTitle);
+                });
+
+                document.getElementById("bookList").appendChild(listItem);
+                document.getElementById("bookInput").value = "";
+
+                let container = document.getElementById("container");
+                let rightSection = document.getElementById("bookListContainer");
+                container.classList.add("split");
+                rightSection.style.display = "flex";
+
+                let notification = document.getElementById("notification");
+                notification.style.display = "block";
+                setTimeout(() => {
+                    notification.style.display = "none";
+                }, 2000);
+            }
+        });
+
+        function sendBorrowRequest(bookTitle) {
+            let borrowNotification = document.getElementById("borrowNotification");
+            borrowNotification.textContent = `📩 Request sent to borrow "${bookTitle}" again!`;
+            borrowNotification.style.display = "block";
+
+            setTimeout(() => {
+                borrowNotification.style.display = "none";
+            }, 2000);
+        }
+    </script>
+
+</body>
+</html>
