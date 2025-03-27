@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search by Genre | BookShare</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='genre.css') }}">
+</head>
+<body>
+    <div class="container">
+        <section class="hero">
+            <h1>Find Books by Genre</h1>
+            <p>Discover books that match your interests</p>
+        </section>
+
+        <section class="genre-search">
+            <form class="search-form" method="POST" action="{{ url_for('yourgenre') }}" id="genreForm">
+                <input type="text" 
+                       name="genre" 
+                       id="genre-input" 
+                       placeholder="Enter a genre (e.g., Fiction, Mystery, Science)"
+                       oninput="searchGenreRealTime(this.value)"
+                       required>
+                <button type="submit">Search Genre</button>
+            </form>
+
+            <div class="genre-suggestions">
+                <span class="genre-tag" onclick="setGenre('Fiction')">Fiction</span>
+                <span class="genre-tag" onclick="setGenre('Mystery')">Mystery</span>
+                <span class="genre-tag" onclick="setGenre('Science')">Science</span>
+                <span class="genre-tag" onclick="setGenre('Romance')">Romance</span>
+                <span class="genre-tag" onclick="setGenre('Fantasy')">Fantasy</span>
+                <span class="genre-tag" onclick="setGenre('Biography')">Biography</span>
+            </div>
+        </section>
+
+        <section class="genre-results" id="results-section">
+            {% if books %}
+                {% for book in books %}
+                    <div class="book-card">
+                        <h3>{{ book.title }}</h3>
+                        <p><strong>Author:</strong> {{ book.author }}</p>
+                        <p><strong>Genre:</strong> {{ book.genre }}</p>
+                        <p><strong>Description:</strong> {{ book.description }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="no-results">No books found in this genre. Try another genre!</p>
+            {% endif %}
+        </section>
+
+        <a href="{{ url_for('homepage') }}" class="back-button">Back to Home</a>
+    </div>
+
+    <script>
+        let timeoutId;
+
+        function searchGenreRealTime(query) {
+            clearTimeout(timeoutId);
+            
+            // Clear results if search query is empty
+            if (!query.trim()) {
+                document.getElementById('results-section').innerHTML = '';
+                return;
+            }
+
+            timeoutId = setTimeout(() => {
+                const formData = new FormData();
+                formData.append('genre', query);
+
+                fetch("{{ url_for('yourgenre') }}", {
+                    method: 'POST',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const resultsSection = document.getElementById('results-section');
+                    if (data.books && data.books.length > 0) {
+                        resultsSection.innerHTML = data.books.map(book => `
+                            <div class="book-card">
+                                <h3>${book.title}</h3>
+                                <p><strong>Author:</strong> ${book.author}</p>
+                                <p><strong>Genre:</strong> ${book.genre}</p>
+                                <p><strong>Description:</strong> ${book.description || 'No description available'}</p>
+                            </div>
+                        `).join('');
+                    } else {
+                        resultsSection.innerHTML = '<p class="no-results">No books found in this genre. Try another genre!</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('results-section').innerHTML = 
+                        '<p class="no-results">Error loading results. Please try again.</p>';
+                });
+            }, 300);
+        }
+
+        // Add event listener for input clearing
+        document.getElementById('genre-input').addEventListener('input', function(e) {
+            if (!this.value.trim()) {
+                document.getElementById('results-section').innerHTML = '';
+            }
+        });
+
+        function setGenre(genre) {
+            document.getElementById('genre-input').value = genre;
+            searchGenreRealTime(genre);
+        }
+    </script>
+</body>
+</html>

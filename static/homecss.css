@@ -1,4 +1,3 @@
-/* Basic Reset */
 * {
     margin: 0;
     padding: 0;
@@ -9,139 +8,152 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4; /* You can change this to any background you prefer */
+    background-color: #f4f4f4;
+    background-image: url('/static/images/home2.jpeg');
+    background-size: cover;
+    background-position: center;
 }
 
 /* Hero Section */
 .hero {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: purple;
-    padding: 20px;
+    text-align: center;
+    padding: 60px 20px;
+    background-color: rgba(128, 0, 128, 0.7);
 }
 
 .hero h1 {
+    font-size: 3.5em;
     color: white;
-    font-family: 'Balmoral', cursive;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .hero p {
-    color: black;
-    font-family: 'Brush Script MT', cursive;
+    font-size: 1.5em;
+    color: white;
 }
 
-/* Divider */
-.divider {
-    width: 100%;
-    height: 4px;
-    background-color: purple;
-    margin: 0;
-}
-
-/* Button Section */
+/* Button Container and Buttons */
 .button-container {
     display: flex;
     justify-content: center;
-    align-items: center;
-    margin: 20px 0;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 40px 20px;
 }
 
 .button {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 150px;
-    height: 150px;
-    margin: 10px;
-    font-size: 18px;
+    width: 180px;
+    height: 180px;
+    border-radius: 15px;
     color: white;
     text-decoration: none;
-    border-radius: 8px;
-    transition: background-color 0.3s;
-    position: relative;
-    border: none; /* Removed border */
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .button .icon {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    font-size: 24px;
+    font-size: 2em;
+    margin-bottom: 10px;
 }
 
-/* Button Styles */
-.search-book {
-    background-color: #4CAF50;
+/* Button Colors */
+.search-book { background-color: #4CAF50; }
+.search-book:hover { 
+    background-color: #45a049; 
+    transform: translateY(-5px);
 }
 
-.search-book:hover {
-    background-color: #45a049;
+.add-book { background-color: #2196F3; }
+.add-book:hover { 
+    background-color: #1976D2; 
+    transform: translateY(-5px);
 }
 
-.add-book {
-    background-color: #2196F3;
+.my-borrow { background-color: #FF9800; }
+.my-borrow:hover { 
+    background-color: #FB8C00; 
+    transform: translateY(-5px);
 }
 
-.add-book:hover {
-    background-color: #1976D2;
+.feedback { background-color: #9C27B0; }
+.feedback:hover { 
+    background-color: #7B1FA2; 
+    transform: translateY(-5px);
 }
 
-.my-borrow {
-    background-color: #FF9800;
-}
-
-.my-borrow:hover {
-    background-color: #FB8C00;
-}
-
-.feedback {
-    background-color: #9C27B0;
-}
-
-.feedback:hover {
-    background-color: #7B1FA2;
-}
-
-.my-profile {
-    background-color: #F44336;
-}
-
-.my-profile:hover {
-    background-color: #E53935;
+.your-genre { background-color: #E91E63; }
+.your-genre:hover { 
+    background-color: #C2185B; 
+    transform: translateY(-5px);
 }
 
 /* Footer */
 footer {
-    background-color: #333;
+    background-color: rgba(51, 51, 51, 0.9);
     color: white;
-    padding: 20px;
-    text-align: center;
-    margin-top: 40px; /* Added margin-top to provide space between buttons and footer */
+    padding: 30px 20px;
+    margin-top: auto;
 }
 
 footer ul {
     list-style: none;
-    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
     margin-bottom: 20px;
-}
-
-footer ul li {
-    display: inline;
-    margin: 0 10px;
 }
 
 footer ul li a {
     color: white;
     text-decoration: none;
+    transition: color 0.3s ease;
 }
 
-footer .social-media a {
-    margin: 0 10px;
+footer ul li a:hover {
+    color: #9C27B0;
+}
+
+.social-media {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.social-media a {
     color: white;
     text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.social-media a:hover {
+    color: #9C27B0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .button-container { gap: 10px; }
+    .button {
+        width: 150px;
+        height: 150px;
+    }
+    .hero h1 { font-size: 2.5em; }
+    .hero p { font-size: 1.2em; }
+}
+
+@media (max-width: 480px) {
+    .button {
+        width: 130px;
+        height: 130px;
+    }
+    footer ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
 }
