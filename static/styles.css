@@ -9,30 +9,28 @@ body {
     background-image: url("/static/images/storytelling-4203628_1280.jpg");
 }
 
-/* Styling for the container */
+/* Container styling */
 .container {
     text-align: center;
     padding: 20px;
     width: 100%;
-    max-width: 400px; /* Limits the width of the container */
-    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background to highlight contents */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Optional: Soft shadow to make the content stand out */
-    margin-top: -40px; /* Move the container upwards */
-    backdrop-filter: blur(10px); /* Optional: Adds a frosted glass effect */
+    max-width: 300px; /* Reduced from 400px */
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 50px auto;
 }
 
-/* Title styling (larger text) */
+/* Title adjustments */
 h1 {
-    font-size: 36px; /* Larger size for the main title */
-    margin-bottom: 10px; /* Spacing below the title */
+    font-size: 28px; /* Reduced from 36px */
+    margin-bottom: 8px;
     color: #333; /* Darker text color for better contrast */
 }
 
-/* Subtitle styling (smaller text) */
 h2 {
-    font-size: 18px; /* Smaller size for the subtitle */
-    margin-bottom: 20px; /* Spacing below the subtitle */
+    font-size: 16px; /* Reduced from 18px */
+    margin-bottom: 15px;
     color: #555; /* Slightly lighter color for the subtitle */
 }
 
@@ -43,14 +41,57 @@ form {
     gap: 15px; /* Spacing between inputs */
 }
 
+.login-form {
+    width: 100%;
+}
+
+/* Form group alignment */
+.form-group {
+    margin-bottom: 15px;
+    text-align: center; /* Center the labels */
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+    font-weight: 500;
+    text-align: center; /* Center the labels */
+}
+
 /* Input fields and button */
 input[type="text"],
-input[type="password"],
-button {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
+input[type="email"],
+input[type="password"] {
+    width: 90%;
+    padding: 8px;
+    border: 1px solid #ddd;
     border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+    text-align: center; /* Center the text */
+}
+
+/* Adjust placeholder text alignment */
+input::placeholder {
+    text-align: center;
+}
+
+input[type="email"],
+input[type="password"] {
+    width: 90%; /* Reduced from 100% */
+    padding: 8px; /* Reduced from 12px */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px; /* Reduced from 16px */
+    transition: border-color 0.3s ease;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #4CAF50;
+    outline: none;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.2);
 }
 
 /* Button style */
@@ -60,8 +101,49 @@ button {
     cursor: pointer;
 }
 
+button[type="submit"] {
+    width: 90%; /* Reduced from 100% */
+    padding: 8px; /* Reduced from 12px */
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px; /* Reduced from 16px */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center; /* Center button text */
+}
+
+button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
 button:hover {
     background-color: #45a049;
+}
+
+.register-link {
+    margin-top: 20px;
+    text-align: center;
+    color: #666;
+}
+
+.register-link a {
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+.error-message {
+    color: #ff0000;
+    background-color: #ffe6e6;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 20px;
+    text-align: center;
 }
 
 /* Footer styling */
@@ -72,5 +154,13 @@ footer {
     text-align: center;
     font-size: 14px;
     color: #fff; /* White color for footer text */
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+    .container {
+        margin: 20px;
+        padding: 15px;
+    }
 }
 

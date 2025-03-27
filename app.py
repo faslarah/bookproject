@@ -15,6 +15,7 @@ def init_db():
         CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             username TEXT UNIQUE NOT NULL,
+            email TEXT UNIQUE NOT NULL,
             password TEXT NOT NULL
         )''')
         
@@ -34,8 +35,8 @@ def init_db():
         c.execute('SELECT * FROM users WHERE username = ?', ('admin',))
         if not c.fetchone():
             admin_password = 'admin123'
-            c.execute('INSERT INTO users (username, password) VALUES (?, ?)',
-                     ('admin', admin_password))
+            c.execute('INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
+                     ('admin', 'admin@example.com', admin_password))
         
         conn.commit()
 
@@ -61,63 +62,43 @@ def homepage():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        # Get form data with proper error handling
-        try:
-            username = request.form.get('username', '').strip()
-            password = request.form.get('password', '').strip()
-        except AttributeError:
-            return render_template('register.html', error="Invalid form data")
-
-        # Validate input
-        if not username or not password:
-            return render_template('register.html', error="Username and password are required")
-
+        email = request.form.get('email', '').strip()
+        password = request.form.get('password', '').strip()
+        
+        if not email or not password:
+            return render_template('register.html', error="Email and password are required")
+        
         try:
             with get_db() as conn:
                 c = conn.cursor()
+                c.execute('SELECT * FROM users WHERE email = ?', (email,))
+                if c.fetchone():
+                    return render_template('register.html', error="Email already exists")
                 
-                # Check if username exists
-                c.execute('SELECT username FROM users WHERE username = ?', (username,))
-                existing_user = c.fetchone()
-                
-                if existing_user:
-                    return render_template('register.html', error="Username already exists")
-                
-                # Insert new user with explicit transaction
-                try:
-                    c.execute('INSERT INTO users (username, password) VALUES (?, ?)',
-                             (username, password))
-                    conn.commit()
-                    print(f"User registered: {username}")  # Debug log
-                    return redirect(url_for('login'))
-                except sqlite3.Error as e:
-                    conn.rollback()
-                    print(f"Database error: {e}")  # Debug log
-                    return render_template('register.html', 
-                                        error="Failed to register user. Please try again.")
-                
+                c.execute('INSERT INTO users (email, password) VALUES (?, ?)',
+                         (email, password))
+                conn.commit()
+                return redirect(url_for('login'))
         except sqlite3.Error as e:
-            print(f"Database connection error: {e}")  # Debug log
-            return render_template('register.html', 
-                                error="Database error. Please try again later.")
-            
+            return render_template('register.html', error=f"Database error: {str(e)}")
+    
     return render_template('register.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        username = request.form.get('username')
+        email = request.form.get('email')
         password = request.form.get('password')
         
         with get_db() as conn:
             c = conn.cursor()
-            user = c.execute('SELECT * FROM users WHERE username = ? AND password = ?', 
-                           (username, password)).fetchone()
+            user = c.execute('SELECT * FROM users WHERE email = ? AND password = ?', 
+                           (email, password)).fetchone()
             
             if user:
                 return redirect(url_for('homepage'))
             
-        return render_template('login.html', error="Invalid username or password")
+        return render_template('login.html', error="Invalid email or password")
     return render_template('login.html')
 
 @app.route('/addbook', methods=['GET', 'POST'])
@@ -150,8 +131,21 @@ def searchbooks():
             ''', (f'%{query}%', f'%{query}%'))
         else:
             c.execute('SELECT * FROM books')
-        books = c.fetchall()
-    return render_template('searchbooks.html', books=books)
+        
+        # Convert rows to dictionaries
+        books = []
+        for row in c.fetchall():
+            book = {}
+            for idx, col in enumerate(c.description):
+                book[col[0]] = row[idx]
+            books.append(book)
+        
+        # Return JSON for AJAX requests
+        if request.headers.get('Accept') == 'application/json':
+            return jsonify({'books': books})
+        
+        # Return HTML for normal requests
+        return render_template('searchbooks.html', books=books)
 
 @app.route('/yourgenre', methods=['GET', 'POST'])
 def yourgenre():

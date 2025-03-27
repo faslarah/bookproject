@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='searchbooks.css') }}">
 </head>
 <body>
-
     <!-- Hero Section -->
     <section class="hero">
         <h1>Search for Books</h1>
@@ -16,59 +15,82 @@
 
     <!-- Search Bar -->
     <section class="search-bar-container">
-        <input type="text" id="search-input" placeholder="Enter book title or author">
-        <button onclick="searchBooks()">Search</button>
+        <div class="search-form">
+            <input type="text" 
+                   id="search-input" 
+                   placeholder="Enter book title or author"
+                   oninput="searchBooksRealTime(this.value)">
+            <button onclick="searchBooks()">Search</button>
+            <div class="search-spinner" id="spinner" style="display: none;"></div>
+        </div>
     </section>
 
     <!-- Search Results Section -->
     <section class="search-results">
-        <h2>Search Results</h2>
         <div class="book-grid" id="search-results-grid">
-            <!-- Dynamically populated books will appear here -->
+            <!-- Results will be loaded here dynamically -->
         </div>
     </section>
 
+    <div class="back-container">
+        <a href="{{ url_for('homepage') }}" class="back-button">Back to Home</a>
+    </div>
+
     <script>
-        // Function to search books based on the entered query
-        function searchBooks() {
-            const searchQuery = document.getElementById('search-input').value.toLowerCase();
-            const books = JSON.parse(localStorage.getItem('books')) || [];
-            const results = books.filter(book => 
-                book.title.toLowerCase().includes(searchQuery) || 
-                book.author.toLowerCase().includes(searchQuery)
-            );
-            displaySearchResults(results);
-        }
+        let timeoutId;
 
-        // Function to display the search results
-        function displaySearchResults(results) {
+        function searchBooksRealTime(query) {
+            clearTimeout(timeoutId);
+            const spinner = document.getElementById('spinner');
             const resultsGrid = document.getElementById('search-results-grid');
-            resultsGrid.innerHTML = '';  // Clear any existing results
 
-            if (results.length > 0) {
-                results.forEach(book => {
-                    const bookCard = document.createElement('div');
-                    bookCard.classList.add('book-card');
-                    // Correctly applying string interpolation
-                    bookCard.innerHTML = `
-                        <h3>${book.title}</h3>
-                        <p><strong>Author:</strong> ${book.author}</p>
-                        <p><strong>Genre:</strong> ${book.genre}</p>
-                        <p>${book.description}</p>
-                        <button onclick="contactUs('${book.title}')">Contact Us</button>
-                    `;
-                    resultsGrid.appendChild(bookCard);
-                });
-            } else {
-                resultsGrid.innerHTML = '<p>No books found.</p>';
+            if (!query.trim()) {
+                resultsGrid.innerHTML = '';
+                return;
             }
+
+            spinner.style.display = 'block';
+            
+            timeoutId = setTimeout(() => {
+                fetch(`/searchbooks?query=${encodeURIComponent(query)}`, {
+                    headers: {
+                        'Accept': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    spinner.style.display = 'none';
+                    if (data.books && data.books.length > 0) {
+                        resultsGrid.innerHTML = data.books.map(book => `
+                            <div class="book-card">
+                                <h3>${book.title}</h3>
+                                <p><strong>Author:</strong> ${book.author}</p>
+                                <p><strong>Genre:</strong> ${book.genre}</p>
+                                <p><strong>Description:</strong> ${book.description || 'No description available'}</p>
+                                <button onclick="contactUs('${book.title.replace(/'/g, "\\'")}')">Contact Us</button>
+                            </div>
+                        `).join('');
+                    } else {
+                        resultsGrid.innerHTML = '<p class="no-results">No books found. Try a different search.</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    spinner.style.display = 'none';
+                    resultsGrid.innerHTML = '<p class="no-results">Error loading results. Please try again.</p>';
+                });
+            }, 300);
         }
 
-        // Function for contact button alert
+        function searchBooks() {
+            const query = document.getElementById('search-input').value;
+            searchBooksRealTime(query);
+        }
+
         function contactUs(bookTitle) {
             alert(`Your request has been sent regarding the book: ${bookTitle}`);
         }
     </script>
-
 </body>
 </html>

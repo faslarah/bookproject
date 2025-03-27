@@ -119,6 +119,35 @@ body {
     transform: scale(1.05);
 }
 
+/* Back Button Styles */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.back-container {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
+}
+
+.back-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.back-button:hover {
+    background-color: #45a049;
+}
+
 /* Media Queries for Responsiveness */
 @media screen and (max-width: 768px) {
     .book-grid {
@@ -131,5 +160,17 @@ body {
 
     .search-bar-container button {
         padding: 10px 15px;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .back-container {
+        bottom: 10px;
+        left: 10px;
     }
 }
