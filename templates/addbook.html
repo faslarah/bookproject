@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='addbookcss.css') }}">
 </head>
 <body>
-
     <!-- Hero Section -->
     <section class="hero">
         <h1>Welcome to BookShare</h1>
@@ -16,31 +15,58 @@
 
     <!-- Add Book Form Section -->
     <section class="add-book">
-        <h2>Add Your Book</h2>
+        <h2>Add Your Book</h2>      
         <form id="addBookForm" action="{{ url_for('addbook') }}" method="POST">
-            <label for="bookTitle">Book Title:</label>
-            <input type="text" id="bookTitle" name="bookTitle" required>
+            <div class="form-group">
+                <label for="title">Title:</label>
+                <input type="text" 
+                       id="title" 
+                       name="title" 
+                       placeholder="Enter book title"
+                       required>
+            </div>
 
-            <label for="bookAuthor">Author:</label>
-            <input type="text" id="bookAuthor" name="bookAuthor" required>
+            <div class="form-group">
+                <label for="author">Author:</label>
+                <input type="text" 
+                       id="author" 
+                       name="author" 
+                       placeholder="Enter author name"
+                       required>
+            </div>
 
-            <label for="bookGenre">Genre:</label>
-            <input type="text" id="bookGenre" name="bookGenre" required>
+            <div class="form-group">
+                <label for="genre">Genre:</label>
+                <input type="text" 
+                       id="genre" 
+                       name="genre" 
+                       placeholder="Enter book genre"
+                       required>
+            </div>
 
-            <label for="bookDescription">Description:</label>
-            <textarea id="bookDescription" name="bookDescription" rows="4" required></textarea>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea id="description" 
+                          name="description" 
+                          rows="4" 
+                          placeholder="Enter book description"
+                          required></textarea>
+            </div>
             
-            <button type="submit">Add Book</button>
+            <button type="submit" class="submit-button">Add Book</button>
         </form>
+
+        {% if message %}
+        <div class="message success">{{ message }}</div>
+        {% endif %}
+
+        {% if error %}
+        <div class="message error">{{ error }}</div>
+        {% endif %}
     </section>
 
     <div class="back-container">
         <a href="{{ url_for('homepage') }}" class="back-button">Back to Home</a>
     </div>
-
-    {% if message %}
-    <div class="message">{{ message }}</div>
-    {% endif %}
-
 </body>
 </html>

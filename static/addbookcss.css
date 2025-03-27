@@ -186,3 +186,13 @@ body {
         grid-template-columns: 1fr; /* Single column on very small screens */
     }
 }
+
+/* User Info Section */
+.user-info {
+    text-align: center;
+    color: #666;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+}
